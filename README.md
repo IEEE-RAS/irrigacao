@@ -1,13 +1,11 @@
-# Controlador remoto de Cortina
+# Sistema de Irrigação automatizado
 
-Controlador de cortina motorizada via rede.
+Sistema de controle de irrigação automatizado e com controle remoto por WiFi.
 
 ## Materiais
 
-- Módulo 2x relays
-- Módulo ESP32-CAM
-- Placa customizada com regulador de tensão
-
-## Proximo
-
-Adicionar endstops
+- Módulo 4x relays
+- Módulo ESP32-DevKit V1
+- Módulo stepdown
+- Módulo sensor de umidade de solo
+- Módulo de conversão de nível de sinal
