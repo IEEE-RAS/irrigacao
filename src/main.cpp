@@ -184,6 +184,16 @@ void sendPacket(uint8_t data)
   UDP.endPacket();
 }
 
+void ligaBomba(int pinobomba)
+{
+  digitalWrite(pinobomba, LOW);
+}
+
+void desligaBomba(int pinobomba)
+{
+  digitalWrite(pinobomba, HIGH);
+}
+
 void loop()
 {
   int packetSize = UDP.parsePacket();
@@ -206,37 +216,53 @@ void loop()
     switch (packet[0])
     {
       // TODO: Criar comandos
+    // Modo de liga/desliga a bomba
+    case 'B':
+      switch (packet[1])
+      {
+      case '0':
+        desligaBomba(EGPIA);
+        break;
+      case '1':
+        ligaBomba(EGPIA);
+        break;
+      default:
+        break;
+      }
+      break;
     // Configuração de timer de parada
     case 'S':
       switch (packet[1])
       {
       case '0':
-        set_state(&DELAY_ST, 30);
+        set_state(&DELAY_ST, 3000);
         break;
       case '1':
-        set_state(&DELAY_ST, 35);
+        set_state(&DELAY_ST, 3500);
         break;
       case '2':
-        set_state(&DELAY_ST, 40);
+        set_state(&DELAY_ST, 4000);
         break;
       case '3':
-        set_state(&DELAY_ST, 45);
+        set_state(&DELAY_ST, 4500);
         break;
       case '4':
-        set_state(&DELAY_ST, 50);
+        set_state(&DELAY_ST, 5000);
         break;
       case '5':
-        set_state(&DELAY_ST, 55);
+        set_state(&DELAY_ST, 5500);
         break;
       case '6':
-        set_state(&DELAY_ST, 60);
+        set_state(&DELAY_ST, 6000);
         break;
       case 'S':
-        if (len > 4)
+        if (len > 6)
         {
           char num[] = {
               packet[2],
               packet[3],
+              packet[4],
+              packet[5],
               '\0'};
           set_state(&DELAY_ST, atoi(num));
         }
@@ -245,11 +271,12 @@ void loop()
       default:
         break;
       }
+      irrigarTimer(DELAY_ST.state);
       break;
 
     // Mensagem de ajuda
     case '?':
-      // TODO: Configurar mensages de ajuda
+      // TODO: Configurar mensagens de ajuda
       sendPacket(header, sizeof(header) - 1);
       sendPacket(help_msg, sizeof(help_msg) - 1);
       // bufSize = sprintf(buff, "Tempo atual: %d\n", delaycount);
