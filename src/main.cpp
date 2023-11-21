@@ -235,34 +235,32 @@ void loop()
       switch (packet[1])
       {
       case '0':
-        set_state(&DELAY_ST, 3000);
+        set_state(&DELAY_ST, 30);
         break;
       case '1':
-        set_state(&DELAY_ST, 3500);
+        set_state(&DELAY_ST, 35);
         break;
       case '2':
-        set_state(&DELAY_ST, 4000);
+        set_state(&DELAY_ST, 40);
         break;
       case '3':
-        set_state(&DELAY_ST, 4500);
+        set_state(&DELAY_ST, 45);
         break;
       case '4':
-        set_state(&DELAY_ST, 5000);
+        set_state(&DELAY_ST, 50);
         break;
       case '5':
-        set_state(&DELAY_ST, 5500);
+        set_state(&DELAY_ST, 55);
         break;
       case '6':
-        set_state(&DELAY_ST, 6000);
+        set_state(&DELAY_ST, 60);
         break;
       case 'S':
-        if (len > 6)
+        if (len > 4)
         {
           char num[] = {
               packet[2],
               packet[3],
-              packet[4],
-              packet[5],
               '\0'};
           set_state(&DELAY_ST, atoi(num));
         }
@@ -271,7 +269,7 @@ void loop()
       default:
         break;
       }
-      irrigarTimer(DELAY_ST.state);
+      irrigarTimer(DELAY_ST.state*100);
       break;
 
     // Mensagem de ajuda
