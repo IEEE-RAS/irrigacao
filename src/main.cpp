@@ -76,6 +76,7 @@ char buff[50];
 
 int delaycount = DELAYCNT, bufSize, posstate = MOVE;
 bool lockstate = LOCKED, direction = DOWN;
+bool molhadoOK;
 
 /**
  * Estados graváveis (valor e endereço na EEPROM)
@@ -101,8 +102,23 @@ void irrigarTimer(int interval)
   digitalWrite(EGPIA, HIGH);
 }
 
+void verificaTempo(float tempoLigar,float tempoLigado){
+  float tempo = millis();
+
+    if (tempoLigar-0.5 <= tempo and tempo <= tempoLigar+0.5)//Caso esteja num intervalo de meia hora a mais ou a menos do horario de irrigar
+
+    {
+      if (molhadoOK == false){
+        irrigarTimer(tempoLigado);
+        boolean molhadoOK = true;
+      }
+    }
+
+}
+
 void setup()
 {
+  boolean molhadoOK;
   Serial.begin(115200);
   Serial.println();
 
