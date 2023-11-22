@@ -92,6 +92,7 @@ void set_state(state_t *stt, uint8_t data)
 {
   stt->state = data;
   EEPROM.write(stt->address, stt->state);
+  EEPROM.commit();
 }
 
 void irrigarTimer(int interval)
@@ -269,7 +270,7 @@ void loop()
       default:
         break;
       }
-      irrigarTimer(DELAY_ST.state*100);
+      irrigarTimer(DELAY_ST.state * 100);
       break;
 
     // Mensagem de ajuda
@@ -305,5 +306,4 @@ void loop()
   {
     irrigarTimer(2000);
   }
-  EEPROM.commit();
 }
