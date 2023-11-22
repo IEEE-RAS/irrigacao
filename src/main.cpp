@@ -48,8 +48,8 @@ enum
  */
 enum EEPROM_ADDR
 {
-  LOCK_ADDR,
-  DIRECTION_ADDR,
+  HOUR_ADDR,
+  MINUTE_ADDR,
   POSITION_ADDR,
   DELAY_ADDR
 };
@@ -80,7 +80,7 @@ bool lockstate = LOCKED, direction = DOWN;
 /**
  * Estados graváveis (valor e endereço na EEPROM)
  */
-state_t LOCK_ST = {LOCKED, LOCK_ADDR}, POSITION_ST = {MOVE, POSITION_ADDR}, DIRECTION_ST = {DOWN, DIRECTION_ADDR}, DELAY_ST = {DELAYCNT, DELAY_ADDR};
+state_t HOUR_ST = {0, HOUR_ADDR}, MINUTE_ST = {0, MINUTE_ADDR}, DELAY_ST = {DELAYCNT, DELAY_ADDR};
 
 /**
  * @brief Grava um estado específico tanto na memória quanto na EEPROM
@@ -271,6 +271,17 @@ void loop()
         break;
       }
       irrigarTimer(DELAY_ST.state * 100);
+      break;
+
+    case 'H':
+      if (len > 3)
+      {
+        char num[] = {
+            packet[2],
+            packet[3],
+            '\0'};
+      }
+
       break;
 
     // Mensagem de ajuda
