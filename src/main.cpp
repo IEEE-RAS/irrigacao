@@ -26,6 +26,8 @@ const long gmtOffset_sec = -10800;
 const int daylaightOffset_sec = 0;
 struct tm timeinfo;
 
+unsigned long oldTimestap = 0;
+
 enum
 {
   DOWN,
@@ -100,6 +102,24 @@ void irrigarTimer(int interval)
   digitalWrite(EGPIA, LOW);
   delay(interval);
   digitalWrite(EGPIA, HIGH);
+}
+
+/**
+ * @brief Dispara um evento de irrigação no horário marcado do dia
+ *
+ * @param oldTimestap último registro de tempo em que um evento aconteceu
+ */
+void timeEvent(unsigned long *oldTimestap)
+{
+  if ((millis() - *oldTimestap) >= 40000)
+  {
+    *oldTimestap = millis();
+    timeinfo = rtc.getTimeStruct();
+    if (timeinfo.tm_hour == HOUR_ST.state && timeinfo.tm_min == HOUR_ST.state)
+    {
+      irrigarTimer(DELAY_ST.state * 100);
+    }
+  }
 }
 
 void setup()
@@ -313,8 +333,11 @@ void loop()
       break;
     }
   }
+
   if (analogRead(SENSORA) > 1500)
   {
     irrigarTimer(2000);
   }
+
+  timeEvent(&oldTimestap);
 }
