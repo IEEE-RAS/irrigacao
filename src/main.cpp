@@ -300,8 +300,18 @@ void loop()
             packet[2],
             packet[3],
             '\0'};
+        set_state(&HOUR_ST, atoi(num));
       }
-
+      break;
+    case 'M':
+      if (len > 3)
+      {
+        char num[] = {
+            packet[2],
+            packet[3],
+            '\0'};
+        set_state(&MINUTE_ST, atoi(num));
+      }
       break;
 
     // Mensagem de ajuda
