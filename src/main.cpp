@@ -71,9 +71,8 @@ const uint8_t cmdrply[] = {'D', 'O', 'N', 'E', '\n'};
 
 // const uint8_t header[] = " _____ _____ _____ _____ _____ _____ _____ \n|     |     | __  |_   _|     |   | |  _  |\n|   --|  |  |    -| | | |-   -| | | |     |\n|_____|_____|__|__| |_| |_____|_|___|__|__|\n";
 // const uint8_t header[] = "   __ _  ___ ________  __ _ \n ,'_,' \\/ o /_  _/ / |/ .' \\\n/ // o /  ,' / // / || / o /\n|__|_,/_/`_\\/_//_/_/|_/_n_/ \n";
-const uint8_t header[] = "|     | __  | __  |     |   __| __  |  _  |   __|\n|-   -|    -|    -|-   -|  |  |    -|     |__   |\n|_____|__|__|__|__|_____|_____|__|__|__|__|_____|";
-
-const uint8_t help_msg[] = {"RAS-Irrigação\nComandos:\n$? Exibe os dados do Sensor A\n"};
+const uint8_t header[] = " _____ _____ _____ _____ _____ _____ _____ _____ \n|     | __  | __  |     |   __| __  |  _  |   __|\n|-   -|    -|    -|-   -|  |  |    -|     |__   |\n|_____|__|__|__|__|_____|_____|__|__|__|__|_____|";
+const uint8_t help_msg[] = {"RAS-Irrigação\nComandos:\nB1 Liga a bomba de irrigação\nB0 Desliga a bomba de irrigação\nH[num] Configura a hora de disparo\nM[num] Configura o minuto do disparo\n$? Exibe os dados do Sensor A\n"};
 char buff[50];
 
 int delaycount = DELAYCNT, bufSize, posstate = MOVE;
